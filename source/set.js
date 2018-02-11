@@ -3,17 +3,27 @@
 // рекурсивная функция, отбрасывает точку - спускается на уровень вложенности
 function set(object, property, value)
 {
-    let prop = property.substring(1, property.length)
-    let idx = prop.indexOf('.');
-    if(idx == -1)
+    let prop;
+    if(typeof(property) == 'string')
     {
-        object[prop] = value;
+        prop = property.split('.');
+        prop.shift();
+    }
+    else
+        prop = property;
+    
+    if(prop.length == 1)
+    {
+        object[prop[0]] = value;
         return object;
     }
     
-    if(!(prop.substring(0, idx) in object)) // у объекта нет требуемого свойства
-    	object[prop.substring(0, idx)] = {};
+    let currProp = prop[0];
+    prop.shift();
 
-    object[prop.substring(0, idx)] = set(object[prop.substring(0, idx)], prop.substring(idx), value);
+    if(!(currProp in object)) // у объекта нет требуемого свойства
+    	object[currProp] = {};
+
+    object[currProp] = set(object[currProp], prop, value);
     return object;
 }
