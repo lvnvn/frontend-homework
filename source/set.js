@@ -1,19 +1,15 @@
 'use strict';
 
 // рекурсивная функция, отбрасывает точку - спускается на уровень вложенности
-function set(object, property, value)
-{
+function set(object, property, value) {
     let prop;
-    if(typeof(property) == 'string')
-    {
+    if(typeof(property) === 'string') {
         prop = property.split('.');
         prop.shift();
-    }
-    else
+    } else
         prop = property;
     
-    if(prop.length == 1)
-    {
+    if(prop.length == 1) {
         object[prop[0]] = value;
         return object;
     }
