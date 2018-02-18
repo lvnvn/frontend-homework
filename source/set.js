@@ -4,8 +4,7 @@
 function set(object, property, value) {
     let prop;
     if(typeof(property) === 'string') {
-        prop = property.split('.');
-        prop.shift();
+        prop = property.split('.').slice(1);
     } else
         prop = property;
     
@@ -14,7 +13,7 @@ function set(object, property, value) {
         return object;
     }
     
-    let currProp = prop[0];
+    const currProp = prop[0];
     prop.shift();
 
     if(!(currProp in object)) // у объекта нет требуемого свойства
